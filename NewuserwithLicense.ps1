@@ -1,3 +1,6 @@
+Connect-AzureAD
+Connect-MGGraph
+
 $userspath = "C:\Users\fuada\Downloads\LUsers.csv"
 $users  = Import-Csv $userspath
 foreach ($user in $users){
@@ -15,7 +18,11 @@ $passwordprofile.ForceChangePasswordNextLogin = $true
 
 New-azureaduser -DisplayName $displayname -UserPrincipalName $userprincipalname -passwordprofile $passwordprofile -MailNickName $mailNickname -AccountEnabled $true
 
-$licenseassignment = get-mgsubscribedsku -all | where skupartnumber -eq 'SPE_E3'
-Set-mguserlicense -userID $userprincipalname -addlicenses @{SKUID = $licenseassignment.SkuId} 
+$licenseassignment = get-mgsubscribedsku -all | where-object  skupartnumber -eq 'SPE_E3'
+$addlicenses = @({SKUID = $licenseassignment.SkuId})
+Set-MgUserLicense -userID $userprincipalname -addlicenses $addlicenses -passwordprofile $password -RemoveLicenses @()
 
 }
+
+#$e3Sku = Get-MgSubscribedSku -All | Where-object SkuPartNumber -eq 'SPE_E3' 
+#Set-MgUserLicense -UserId "habeeb@fardaf.com" -AddLicenses @{SkuId = $e3Sku.SkuId} -RemoveLicenses @()
