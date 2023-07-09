@@ -25,4 +25,4 @@ Set-MgUserLicense -userID $userprincipalname -addlicenses $addlicenses -password
 }
 
 #$e3Sku = Get-MgSubscribedSku -All | Where-object SkuPartNumber -eq 'SPE_E3' 
-#Set-MgUserLicense -UserId "habeeb@fardaf.com" -AddLicenses @{SkuId = $e3Sku.SkuId} -RemoveLicenses @()
+#Set-MgUserLicense -UserId "david@faradaf.com" -AddLicenses @{SkuId = $e3Sku.SkuId} -RemoveLicenses @()
